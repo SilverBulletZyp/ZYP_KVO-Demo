@@ -78,8 +78,8 @@
 - (void)example4 {
     
     self.toy = [[Toy alloc]init];
-    
-    
+    NSLog(@"init toy = %@",self.toy.car);
+    self.fbKVO = [FBKVOController controllerWithObserver:self];
     [self.fbKVO observe:self.toy
                 keyPath:@"car"
                 options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
@@ -89,6 +89,11 @@
      }];
     
     self.toy.car = @"ambulance";
+    
+    /*
+     源码地址：https://github.com/facebook/KVOController
+     */
+    
     
     
     /*
@@ -103,25 +108,25 @@
 }
 
 
-//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-//    
-//    // example1
-//    if ([keyPath isEqualToString:@"labelString"]) {
-//        NSLog(@"%@",change);
-//    }
-//    
-//    // example2
-//    if ([keyPath isEqualToString:@"height"]) {
-//        NSLog(@"%@",change);
-//    }
-//    
-//    // example3
-//    if ([keyPath isEqualToString:@"dog"]) {
-//        NSLog(@"%@",change);
-//    }
-//    
-//    
-//}
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    
+    // example1
+    if ([keyPath isEqualToString:@"labelString"]) {
+        NSLog(@"%@",change);
+    }
+    
+    // example2
+    if ([keyPath isEqualToString:@"height"]) {
+        NSLog(@"%@",change);
+    }
+    
+    // example3
+    if ([keyPath isEqualToString:@"dog"]) {
+        NSLog(@"%@",change);
+    }
+    
+    
+}
 
 - (void)dealloc {
     // 局部变量被回收，由于观察者未被移除会造成崩溃，因此观察对象为全局变量，同时需要移除观察者(example2)
